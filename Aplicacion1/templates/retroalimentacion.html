@@ -1,0 +1,33 @@
+{% extends 'barra.html' %}
+{% block content %}
+<br>
+<div class="container">
+	<div id="retro" class="jumbotron my-4">
+		<h2 class="text-custom">La pregunta fue:</h2>
+		<h4 class="text-custom">{{respondida.pregunta.texto|safe}}</h4>
+		<p>
+			<strong>Tu respuesta fue:</strong>
+			{{respondida.respuesta.texto|safe}}
+		</p>
+
+		{% if respondida.respuesta.correcta %}	
+		<h4 class="text-custom">Felicidades, tu respuesta es correcta</h4>
+	{% else %}	
+		<h4 class="text-custom">Tu respuesta es incorrecta</h4>
+		<p>Retroalimentacion: {{ retroalimentacion_pregunta|safe }}</p>
+		{% for respuesta in respondida.pregunta.opciones.all %}
+
+			{% if respuesta.correcta %}
+
+				<h4>Por lo tanto la respuesta correcta era: <span class="text-success">{{respuesta}}</span></h4>
+				
+			{% endif %}
+
+		{% endfor %}
+
+	{% endif %}
+	
+	<a button type="button" class="btn btn-dark"/button href="{% url 'psd_url' %}">Siguiente Pregunta</a>
+	</div>	
+</div>
+{% endblock %}

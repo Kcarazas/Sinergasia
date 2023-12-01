@@ -1,0 +1,20 @@
+{% extends 'barra.html' %}
+{% block content %}
+<div class="profile-container">
+    <h2 style="text-align: center;">Perfil de {{ user.username }}</h2>
+
+    <div class="profile-info">
+        <h3>Información del perfil</h3>
+        <p><strong>Nombre y apellido:</strong> {{ user.first_name }} {{ user.last_name }}</p>
+        <p><strong>Correo electrónico:</strong> {{ user.email|default:"no registrado" }}</p>
+        <p><strong>Fecha de nacimiento:</strong> {{ user.usuario.birth_date|date:"F j, Y"|default:"no registrado" }}</p>
+        <p><strong>Género:</strong> {{ user.usuario.gender|default:"no registrado" }}</p>
+        <p><strong>Región:</strong> {{ user.usuario.region|default:"no registrado" }}</p>
+        <p><strong>Comuna:</strong> {{ user.usuario.comuna|default:"no registrado" }}</p>
+        <p><strong>Puntaje Total:</strong> {{ user.usuario.puntajetotal }}</p>
+    </div>
+    <a button type="button" class="btn btn-dark"/button href="{% url 'editarperfil' %}">editar perfil</a>
+    
+</div>
+
+{% endblock %}

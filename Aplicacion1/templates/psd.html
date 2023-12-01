@@ -1,0 +1,36 @@
+{% extends 'barra.html' %}
+{% block content %}
+    <br>
+    <div class="container">
+        <form method="POST">
+            {% csrf_token %}
+                <input type="hidden" name="pregunta_pk" value="{{ pregunta.id }}">
+                {% if pregunta.imagen %}
+                <div class="contenedor">
+                    <p class="referencia">Imagen de referencia</p>
+                    <img src="{{ pregunta.imagen.url }}" alt="Imagen de la pregunta">
+                </div>
+            {% endif %}
+                <div class="container">
+                    <div class="preguntas">
+                        <h2 class="psd" style="text-align: center;">Cuestionario</h2>
+                        <h3>{{ pregunta.texto }}</h3>
+                        <ul>
+                            <div class="container">
+                                {% for respuesta in pregunta.opciones.all %}
+                                    <li>
+                                        <input class="form-check-input" type="radio" name="respuesta_pk" value="{{ respuesta.id }}"> 
+                                        {{ respuesta.texto }} 
+                                    </li>
+                                {% endfor %}
+                            </div>
+                        </ul>
+                        {% if request.method == 'POST' and not pregunta_pk %}
+                        <p style="color: red;">Debes seleccionar una respuesta para continuar.</p>
+                        {% endif %}
+                        <button type="submit" class="btn btn-dark">Enviar</button>
+                        
+                    </div>
+        </form>
+    </div>
+{% endblock %}
